@@ -2,7 +2,8 @@ name: release
 on:
   workflow_dispatch:
     branches:
-      - 'release/v**'
+      - 'releases/v**'
+      - '!main'
 
 jobs:
   create-release:
