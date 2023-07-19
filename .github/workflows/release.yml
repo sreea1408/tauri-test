@@ -2,7 +2,7 @@ name: release
 on:
   workflow_dispatch:
     branches:
-      - release/**
+      - 'release/v**'
 
 jobs:
   create-release:
