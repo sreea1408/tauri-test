@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
     branches:
       - 'release/v**'
-      - '!main'
 
 jobs:
   create-release:
