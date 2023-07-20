@@ -10,27 +10,24 @@ jobs:
       fail-fast: false
       matrix:
         platform: [macos-latest, ubuntu-20.04, windows-latest]
-
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install pnpm package manager
+        uses: pnpm/action-setup@v2
         with:
             version: 8
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'pnpm'
-      - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable
-      - name: Install dependencies (ubuntu only)
+      - name: Install frontend dependencies
+        run: pnpm install
+      - name: Install Linux dependencies
         if: matrix.platform == 'ubuntu-20.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
-      - name: Install frontend dependencies
-        run: pnpm install
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
       - name: Build app
         run: pnpm tauri build
       - name: Save build artifacts
