@@ -4,4 +4,6 @@ on:
 
 jobs:
   tauri-release:
+    permissions:
+      contents: write
     uses: sreea1408/workflows/.github/workflows/tauri-release.yaml@main
